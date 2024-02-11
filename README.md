@@ -2,7 +2,7 @@
 
 ## Setup
 
-> This guide assumes you are Ubuntu
+> This guide assumes you are running on Ubuntu
 
 Install git, python and python requests
 
