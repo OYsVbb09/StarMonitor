@@ -18,7 +18,7 @@ STARHUNTER_ROLE_ID = getenv("STARHUNTER_ROLE_ID")
 DISCORD_MESSAGE_USERNAME = "OSRS Star Watcher"
 
 DISCORD_MESSAGE_SPEC = """
-T{tier:d} Star at '{loc:s}' in {world:d}
+T{tier:d} Star at '{loc:s}' in W{world:d}
 > ~<t:{time:%s}:R> by {scout:s} on [osrsportal.com](https://osrsportal.com/shooting-stars-tracker)'
 """.strip()
 
