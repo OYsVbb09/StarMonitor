@@ -25,7 +25,7 @@ from typing import TYPE_CHECKING
 
 import requests
 
-from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG, VERBOSE
+from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG
 from .._constants.discord import DISCORD_MESSAGE_SPEC
 
 if TYPE_CHECKING:
@@ -93,7 +93,7 @@ class DiscordNotifier:
             logger.error(
                 "Failed to post message to discord (status=%d)", ret.status_code
             )
-            if VERBOSE:
+            if DEBUG:
                 logger.debug(
                     "Send to discord: \n\t%r\nAnd received:\n\t%r",
                     ret.request.body,
