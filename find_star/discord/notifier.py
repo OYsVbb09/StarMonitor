@@ -25,8 +25,8 @@ from typing import TYPE_CHECKING
 
 import requests
 
-from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG, VERBOSE
-from .._constants.discord import DISCORD_MESSAGE_SPEC
+from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG
+from .._constants.discord import DISCORD_WEBHOOK_PAYLOAD
 
 if TYPE_CHECKING:
     from typing import Dict, Any
@@ -44,19 +44,7 @@ class DiscordNotifier:
     """
 
     headers: "Dict[str, str]" = {"Content-Type": "application/json"}
-    payload: "Dict[str, Any]" = {
-        "username": "OSRS Star Watcher",
-        "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
-        "embeds": [
-            {
-                "title": "OSRS Star Tracker",
-                "url": "https://osrsportal.com/shooting-stars-tracker",
-                "footer": {
-                    "text": "No affiliation",
-                },
-            },
-        ],
-    }
+    payload: "Dict[str, Any]" = DISCORD_WEBHOOK_PAYLOAD
 
     __endpoint: str
 
@@ -71,21 +59,20 @@ class DiscordNotifier:
         __endpoint: str
             Discord webhook 'uri'
         """
+        if not __endpoint:
+            raise ValueError("Missing Discord webhook endpoint")
         self.__endpoint = __endpoint
 
     def __call__(self, __star_info: "Star") -> "requests.Response":
         """Send notification to Discord"""
         star = __star_info
-        _scout_time = star["time"]
-        star["time"] = round(_scout_time.timestamp())
         payload = copy(self.payload)
         payload["content"] = (
-            # Format tempate message with star info
+            # Format template message with star info
             payload["content"].format(**star)
         )
         if DEBUG:
-            logger.debug(
-                "Sending the following message to Discord:\n%r", payload)
+            logger.debug("Sending the following message to Discord:\n%r", payload)
         ret = requests.post(
             self.__endpoint,
             data=json.dumps(payload),
@@ -96,7 +83,10 @@ class DiscordNotifier:
             logger.error(
                 "Failed to post message to discord (status=%d)", ret.status_code
             )
-            if VERBOSE:
-                logger.debug("Send to discord: \n\t%r\nAnd received:\n\t%r",
-                             ret.request.body, ret.text)
+            if DEBUG:
+                logger.debug(
+                    "Send to discord: \n\t%r\nAnd received:\n\t%r",
+                    ret.request.body,
+                    ret.text,
+                )
         return ret

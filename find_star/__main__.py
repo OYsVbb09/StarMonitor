@@ -2,7 +2,7 @@ import sys
 import json
 import logging
 
-from ._constants import VERBOSE
+from ._constants import VERBOSE, DEBUG
 
 if VERBOSE:
     logging.basicConfig(level=logging.DEBUG)
@@ -13,12 +13,12 @@ from .cli_arguments import cli_arguments
 
 from ._constants.discord import DISCORD_WEBHOOK_ENDPOINT
 
-if not DISCORD_WEBHOOK_ENDPOINT:
-    logging.error("Unset manditory variable: DISCORD_WEBHOOK_ENDPOINT")
+try:
+    message_handler = DiscordNotifier(DISCORD_WEBHOOK_ENDPOINT)
+except ValueError as _e:
+    logging.error("Failed to setup Discord message handler: %s", _e, stack_info=DEBUG)
     sys.exit(1)
 
-
-message_handler = DiscordNotifier(DISCORD_WEBHOOK_ENDPOINT)
 cli_args = cli_arguments()
 worlds = cli_args.pop("worlds")
 monitor = StarMonitor(
@@ -29,6 +29,7 @@ monitor = StarMonitor(
 )
 
 logging.debug("Running with settings: %r", cli_args)
+
 if cli_args["daemon"]:
     monitor.background_notify(message_handler)
 
