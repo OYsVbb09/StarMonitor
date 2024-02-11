@@ -25,7 +25,7 @@ cd StarMonitor
 Then copy the `sample/env` to `.env`
 
 ```sh
-cp sample/env .env
+cp sample/sample.env .env
 ```
 
 And edit the `.env` file with your discord webhook endpoint and the 'target mention' role id

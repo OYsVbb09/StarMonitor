@@ -1,2 +1,6 @@
 !*.py
-!**/.gitignore
+
+!_constants/
+!discord/
+!osrsportal/
+
