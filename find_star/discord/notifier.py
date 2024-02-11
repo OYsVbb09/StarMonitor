@@ -76,16 +76,13 @@ class DiscordNotifier:
     def __call__(self, __star_info: "Star") -> "requests.Response":
         """Send notification to Discord"""
         star = __star_info
-        _scout_time = star["time"]
-        star["time"] = round(_scout_time.timestamp())
         payload = copy(self.payload)
         payload["content"] = (
             # Format tempate message with star info
             payload["content"].format(**star)
         )
         if DEBUG:
-            logger.debug(
-                "Sending the following message to Discord:\n%r", payload)
+            logger.debug("Sending the following message to Discord:\n%r", payload)
         ret = requests.post(
             self.__endpoint,
             data=json.dumps(payload),
@@ -97,6 +94,9 @@ class DiscordNotifier:
                 "Failed to post message to discord (status=%d)", ret.status_code
             )
             if VERBOSE:
-                logger.debug("Send to discord: \n\t%r\nAnd received:\n\t%r",
-                             ret.request.body, ret.text)
+                logger.debug(
+                    "Send to discord: \n\t%r\nAnd received:\n\t%r",
+                    ret.request.body,
+                    ret.text,
+                )
         return ret
