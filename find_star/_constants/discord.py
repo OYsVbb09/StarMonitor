@@ -13,8 +13,8 @@ DISCORD_WEBHOOK_ENDPOINT = getenv(
 STARHUNTER_ROLE_ID = getenv("STARHUNTER_ROLE_ID", "StarHunters")
 
 DISCORD_MESSAGE_SPEC = """
-<@&%(role_id)s> T{tier:d} Star at '{loc:s}'
-> ~<t:{time:d}:R> by {scout:s} on [osrsportal.com](https://osrsportal.com/shooting-stars-tracker)'
+{World:d}<@&%(role_id)s> T{tier:d} Star at '{loc:s}
+> ~<t:{time:d}:R> by {scout:s} on [osrsportal.com](https://osrsportal.com/shooting-stars-tracker)
 """.strip() % {
     "role_id": STARHUNTER_ROLE_ID
 }
