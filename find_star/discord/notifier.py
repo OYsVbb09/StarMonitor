@@ -49,10 +49,10 @@ class DiscordNotifier:
         "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
         "embeds": [
             {
-                "title": "OSRS Star Tracker",
-                "url": "https://osrsportal.com/shooting-stars-tracker",
+                "title": "Assign Role for W444 Star Notifications",
+                "url": "https://discord.com/channels/1172035731837960242/1185740071488471040",
                 "footer": {
-                    "text": "No affiliation",
+                    "text": "#get-roles react for discord pings",
                 },
             },
         ],
