@@ -34,8 +34,7 @@ def get_osrsportal_stars(
         "Referer": "https://osrsportal.com/shooting-stars",
         "Authorization": osrs_portal_auth_header(),
     }
-    ret = requests.get(endpoint, headers=headers,
-                       timeout=EXTERNAL_CONNECTION_TIMEOUT)
+    ret = requests.get(endpoint, headers=headers, timeout=EXTERNAL_CONNECTION_TIMEOUT)
     if ret.status_code != 200:
         logger.error("Failed to make request, status: %d", ret.status_code)
         return []

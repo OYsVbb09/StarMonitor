@@ -86,10 +86,11 @@ class StarMonitor:
         """
         eligible_star = {}
 
-        for star in stars:
+        for star in iter(stars):
             if not star["world"] in self.worlds or star["world"] in WORLD_BLACKLIST:
                 # Skip star if we failed the world check
                 continue
+
             if star["region"].lower() in [i.lower() for i in REGION_BLACKLIST]:
                 continue
             if (
@@ -100,14 +101,14 @@ class StarMonitor:
                 continue
             if self.min_tier > star["tier"] > floor(self.mining_lvl / 10):
                 # skip star if it fails the 'size' check
-                logger.debug("failed star, %r", star)
                 continue
             if eligible_star:
                 # If a 'compatible' star was already found, check if this star is 'better'
-                if star["time"].timestamp() > eligible_star["time"].timestamp():
-                    continue
                 if star["tier"] < eligible_star["tier"]:
                     continue
+                if star["time"].timestamp() > eligible_star["time"].timestamp():
+                    continue
+
             eligible_star = star
         return eligible_star or None
 
