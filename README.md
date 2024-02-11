@@ -10,10 +10,10 @@ Install git, python and python requests
 sudo apt-get update && sudo apt-get install git python3 python3-requests
 ```
 
-Clone the code
+Clone the code (NOTE: original USERNAME "OYsVbb09" - use this to find mother code if needed)
 
 ```sh
-git clone https://github.com/OYsVbb09/StarMonitor 
+git clone https://github.com/irondvst/StarMonitor 
 ```
 
 and cd into the folder
