@@ -98,5 +98,5 @@ class DiscordNotifier:
             )
             if VERBOSE:
                 logger.debug("Send to discord: \n\t%r\nAnd received:\n\t%r",
-                             ret.request.body, ret.json())
+                             ret.request.body, ret.text)
         return ret
