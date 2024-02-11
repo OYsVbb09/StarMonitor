@@ -45,11 +45,11 @@ class DiscordNotifier:
 
     headers: "Dict[str, str]" = {"Content-Type": "application/json"}
     payload: "Dict[str, Any]" = {
-        "username": "OSRS Star Watcher",
+        "username": "W444 Star Watcher",
         "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
         "embeds": [
             {
-                "title": "#get-roles for W444 Star Notifications",
+                "title": "#get-roles for Star Notifications",
                 "url": "https://discord.com/channels/1172035731837960242/1185740071488471040",
                 "footer": {
                     "text": "Follow the #get-roles link and react to Star Watcher to receive Discord pings",
