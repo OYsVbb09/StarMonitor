@@ -84,14 +84,15 @@ class DiscordNotifier:
             payload["content"].format(**star)
         )
         if DEBUG:
-            logger.debug("Sending the following message to Discord:\n%r", payload)
+            logger.debug(
+                "Sending the following message to Discord:\n%r", payload)
         ret = requests.post(
             self.__endpoint,
             data=json.dumps(payload),
             headers=self.headers,
             timeout=EXTERNAL_CONNECTION_TIMEOUT,
         )
-        if ret.status_code != 200:
+        if ret.status_code not in [200, 201, 204]:
             logger.error(
                 "Failed to post message to discord (status=%d)", ret.status_code
             )
