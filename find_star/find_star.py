@@ -114,7 +114,7 @@ class StarMonitor:
 
     @staticmethod
     def calculate_star_duration(tier: int) -> int:
-        return (tier * PER_TIER_DELAY) * 60
+        return (tier * PER_TIER_DELAY)
 
     def get_star(self) -> "Optional[Star]":
         return self.__find_suitable_star(self.__star_getter())
