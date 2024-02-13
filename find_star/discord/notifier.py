@@ -103,7 +103,7 @@ class DiscordNotifier:
             headers=self.headers,
             timeout=EXTERNAL_CONNECTION_TIMEOUT,
         )
-        if ret.status_code in [200, 201, 204, 404]:
+        if ret.status_code in [200, 201, 204]:
             self.__last_star = __star_info
             return
         logger.error(
