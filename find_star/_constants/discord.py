@@ -8,9 +8,6 @@ __all__ = (
 
 STARHUNTER_ROLE_ID = getenv("STARHUNTER_ROLE_ID", "000000")
 
-DISCORD_WEBHOOK_ENDPOINT = getenv(
-    "DISCORD_WEBHOOK_ENDPOINT",
-)
 
 EXTRA_FORMAT_ARGS = {
     "role_mention": f"<@&{STARHUNTER_ROLE_ID}>",
@@ -22,17 +19,6 @@ DISCORD_MESSAGE_SPEC = """
 > {dynamic_ts:s} by {scout:s} on [osrsportal](https://osrsportal.com/shooting-stars-tracker)
 """.strip()
 
-DISCORD_EMBEDS = (
-    [
-        {
-            "title": "#get-roles for W444 Star Notifications",
-            "url": "https://discord.com/channels/1172035731837960242/1185740071488471040",
-            "footer": {
-                "text": "Follow the #get-roles link and react to Star Watcher to receive Discord pings",
-            },
-        },
-    ],
-)
 
 DISCORD_USER_NAME = "Star Watcher"
 
