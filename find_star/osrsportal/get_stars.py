@@ -10,8 +10,9 @@ import requests
 from .data_structure import Star
 from .auth_header import osrs_portal_auth_header
 
-from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG
+from .._constants import DEBUG
 from .._constants.osrsportal import ACTIVE_STARS_ENDPOINT
+from .._constants.external_probes import EXTERNAL_CONNECTION_TIMEOUT
 
 if TYPE_CHECKING:
     from typing import Iterable

@@ -1,7 +1,6 @@
-from . import discord, osrsportal, star_parameters, probe_delays
+from . import discord, osrsportal, star_parameters, external_probes
 from .debug import DEBUG, VERBOSE
 
-EXTERNAL_CONNECTION_TIMEOUT = 30
 
 __all__ = (
     "DEBUG",
@@ -9,5 +8,5 @@ __all__ = (
     "discord",
     "osrsportal",
     "star_parameters",
-    "probe_delays",
+    "external_probes",
 )
