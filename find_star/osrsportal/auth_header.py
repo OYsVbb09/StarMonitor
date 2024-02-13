@@ -7,8 +7,8 @@ from math import floor
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from .._constants import EXTERNAL_CONNECTION_TIMEOUT
 from .._constants.osrsportal import BEARER_FORMAT_SPEC
+from .._constants.external_probes import EXTERNAL_CONNECTION_TIMEOUT
 
 if TYPE_CHECKING:
     from typing import Dict, Any

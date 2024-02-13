@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 from .osrsportal import get_osrsportal_stars
 
 from ._constants import VERBOSE
-from ._constants.probe_delays import PER_TIER_DELAY, SEARCH_DELAY
+from ._constants.external_probes import SEARCH_DELAY
 from ._constants.star_parameters import (
     MAXIMAL_AGE,
     MINIMAL_TIER,
@@ -112,10 +112,6 @@ class StarMonitor:
             eligible_star = star
         return eligible_star or None
 
-    @staticmethod
-    def calculate_star_duration(tier: int) -> int:
-        return (tier * PER_TIER_DELAY)
-
     def get_star(self) -> "Optional[Star]":
         return self.__find_suitable_star(self.__star_getter())
 
@@ -138,10 +134,6 @@ class StarMonitor:
                 if star:
                     logger.info("Found star: %r", star)
                     __notification_hook(star)
-                    tier = star["tier"]
-                    idle_time = self.calculate_star_duration(tier)
-                    sleep(idle_time)
-                    continue
                 sleep(SEARCH_DELAY)  # 60 seconds
             except KeyboardInterrupt as _e:
                 logger.debug("Caught exit signal %s, exiting...", _e)

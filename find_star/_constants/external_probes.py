@@ -1,6 +1,6 @@
 __all__ = (
     "SEARCH_DELAY",
-    "PER_TIER_DELAY",
+    "EXTERNAL_CONNECTION_TIMEOUT",
 )
 
 # WARNING-start
@@ -10,6 +10,4 @@ SEARCH_DELAY = 45
 # unaffiliated endpoint, which they may not appreciate!
 # WARNING-end
 
-_minute = 60
-
-PER_TIER_DELAY = _minute * 7  # 7 minutes wait per tier on found star
+EXTERNAL_CONNECTION_TIMEOUT = 30

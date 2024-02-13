@@ -21,18 +21,33 @@ import json
 import logging as logger
 
 from copy import copy
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 import requests
 
-from .._constants import EXTERNAL_CONNECTION_TIMEOUT, DEBUG, VERBOSE
-from .._constants.discord import DISCORD_MESSAGE_SPEC
+from .._constants import DEBUG
+from .._constants.discord import DISCORD_PAYLOAD, EXTRA_FORMAT_ARGS
+from .._constants.external_probes import EXTERNAL_CONNECTION_TIMEOUT
+
 
 if TYPE_CHECKING:
-    from typing import Dict, Any
+    from typing import Optional, Dict, Any
     from ..osrsportal.data_structure import Star
 
 __all__ = ("DiscordNotifier",)
+
+
+def same_star(new_star: Star, old_star: Star = None):
+    if not old_star:
+        return False
+    if old_star["world"] != new_star["world"]:
+        return False
+    if old_star["loc"] == new_star["loc"]:
+        return (old_star["time"] + timedelta(minutes=90)).timestamp() > new_star[
+            "time"
+        ].timestamp()
+    return False
 
 
 class DiscordNotifier:
@@ -44,21 +59,9 @@ class DiscordNotifier:
     """
 
     headers: "Dict[str, str]" = {"Content-Type": "application/json"}
-    payload: "Dict[str, Any]" = {
-        "username": "Star Watcher",
-        "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
-        "embeds": [
-            {
-                "title": "#get-roles for W444 Star Notifications",
-                "url": "https://discord.com/channels/1172035731837960242/1185740071488471040",
-                "footer": {
-                    "text": "Follow the #get-roles link and react to Star Watcher to receive Discord pings",
-                },
-            },
-        ],
-    }
-
+    payload: "Dict[str, Any]" = DISCORD_PAYLOAD
     __endpoint: str
+    __last_star: "Optional[Star]" = None
 
     def __init__(
         self,
@@ -71,18 +74,26 @@ class DiscordNotifier:
         __endpoint: str
             Discord webhook 'uri'
         """
+        if not __endpoint:
+            raise ValueError("Missing Discord webhook endpoint")
         self.__endpoint = __endpoint
 
-    def __call__(self, __star_info: "Star") -> "requests.Response":
+    def __call__(self, __star_info: "Star") -> "Optional[requests.Response]":
         """Send notification to Discord"""
-        star = __star_info
-        _scout_time = star["time"]
-        star["time"] = round(_scout_time.timestamp())
+        if same_star(__star_info, self.__last_star):
+            if DEBUG:
+                logger.debug("Already posted star to Discord, skipping")
+            return
+        format_args = {
+            k: v.format(**__star_info) for k, v in EXTRA_FORMAT_ARGS.items()
+        }
+        format_args.update(__star_info)
         payload = copy(self.payload)
         payload["content"] = (
-            # Format tempate message with star info
-            payload["content"].format(**star)
+            # Format template message with star info
+            payload["content"].format(**format_args)
         )
+
         if DEBUG:
             logger.debug(
                 "Sending the following message to Discord:\n%r", payload)
@@ -92,11 +103,14 @@ class DiscordNotifier:
             headers=self.headers,
             timeout=EXTERNAL_CONNECTION_TIMEOUT,
         )
-        if ret.status_code not in [200, 201, 204]:
-            logger.error(
-                "Failed to post message to discord (status=%d)", ret.status_code
+        if ret.status_code in [200, 201, 204]:
+            self.__last_star = __star_info
+            return
+        logger.error(
+            "Failed to post message to discord (status=%d)", ret.status_code)
+        if DEBUG:
+            logger.debug(
+                "Send to discord: \n\t%r\nAnd received:\n\t%r",
+                ret.request.body,
+                ret.text,
             )
-            if VERBOSE:
-                logger.debug("Send to discord: \n\t%r\nAnd received:\n\t%r",
-                             ret.request.body, ret.text)
-        return ret

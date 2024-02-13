@@ -4,6 +4,7 @@ __all__ = (
     "MINING_LEVEL",
 )
 
+# Here be the Defaults (if no cli argument was given)
 MAXIMAL_AGE = 5
 MINIMAL_TIER = 3
 MINING_LEVEL = 99
