@@ -28,10 +28,10 @@ DISCORD_PAYLOAD = {
     "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
     "embeds": [
         {
-            "title": "#get-roles for W444 Star Notifications",
-            "url": "https://discord.com/channels/1172035731837960242/1185740071488471040",
+            "title": "Click Here for more info on W444 Shooting Stars",
+            "url": "https://discord.com/channels/1172035731837960242/1206322774520635432/1206334719181062254",
             "footer": {
-                "text": "Follow the #get-roles link and react to Star Watcher to receive Discord pings",
+                "text": "Follow the [#get-roles](https://discord.com/channels/1172035731837960242/1185740071488471040) link and react to Star Watcher to receive Discord pings",
             },
         },
     ],
