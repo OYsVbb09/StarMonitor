@@ -17,7 +17,8 @@ EXTRA_FORMAT_ARGS = {
 DISCORD_MESSAGE_SPEC = """
 **T{tier:d} Star** at **{loc:s}** {role_mention}
 > {dynamic_ts:s} by {scout:s} on [osrsportal](https://osrsportal.com/shooting-stars-tracker)
-Follow this [#get-roles](https://discord.com/channels/1172035731837960242/1185740071488471040) link and react to Star Watcher to receive Discord pings
+
+Follow this [#get-roles](https://discord.com/channels/1172035731837960242/1185740071488471040) link and react to Star Watcher to receive notifications
 """.strip()
 
 
