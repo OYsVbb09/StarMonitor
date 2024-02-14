@@ -17,6 +17,7 @@ EXTRA_FORMAT_ARGS = {
 DISCORD_MESSAGE_SPEC = """
 **T{tier:d} Star** at **{loc:s}** {role_mention}
 > {dynamic_ts:s} by {scout:s} on [osrsportal](https://osrsportal.com/shooting-stars-tracker)
+Follow this [#get-roles](https://discord.com/channels/1172035731837960242/1185740071488471040) link and react to Star Watcher to receive Discord pings
 """.strip()
 
 
@@ -28,10 +29,11 @@ DISCORD_PAYLOAD = {
     "content": DISCORD_MESSAGE_SPEC,  # Will be formatted when posting to Discord
     "embeds": [
         {
-            "title": "Click Here for more info on W444 Shooting Stars",
+            "title": "Click Here for more info on Star Watcher",
             "url": "https://discord.com/channels/1172035731837960242/1206322774520635432/1206334719181062254",
+            "color": 11469820,
             "footer": {
-                "text": "Follow the [#get-roles](https://discord.com/channels/1172035731837960242/1185740071488471040) link and react to Star Watcher to receive Discord pings",
+                "text": "A Discord Bot that automatically scouts and calls Shooting Stars on our home world - W444",
             },
         },
     ],
