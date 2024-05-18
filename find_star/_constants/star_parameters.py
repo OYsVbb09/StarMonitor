@@ -28,4 +28,7 @@ WORLD_BLACKLIST = [
 REGION_BLACKLIST = [
     "wilderness",
     "wildy",
+    "varlamore",
+    "unknown",
+
 ]
