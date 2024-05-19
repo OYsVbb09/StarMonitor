@@ -1,5 +1,9 @@
 # OSRS Portal monitor and notifier
 
+> [!IMPORTANT]  
+> This repository has been archived!
+> Refer to [irondvst/StarMonitor](https://github.com/irondvst/StarMonitor) instead
+
 ## Setup
 
 > This guide assumes you are running on Ubuntu
